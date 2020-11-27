@@ -1,0 +1,22 @@
+@import "~bootstrap/scss/bootstrap";
+
+$primary-color: #221c1b !important;
+$secondary-color: #e72b03 !important;
+$light-color:#848484!important;
+$text-color: #fff8f8 !important;
+
+.nav-custom {
+    background-color: $primary-color;
+}
+
+.nav-custom a {
+    color: $light-color;
+}
+
+.navbar-toggler-icon{
+    background-color: $light-color;
+}
+
+body {
+    background-color: white;
+}
