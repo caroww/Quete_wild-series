@@ -1,16 +1,16 @@
 @import "~bootstrap/scss/bootstrap";
 
-$primary-color: #221c1b !important;
-$secondary-color: #e72b03 !important;
-$light-color:#848484!important;
+$primary-color: #0f0e0e !important;
+$secondary-color: #ca2703 !important;
+$light-color:#535353!important;
 $text-color: #fff8f8 !important;
 
 .nav-custom {
-    background-color: $primary-color;
+    background-color: $light-color;
 }
 
 .nav-custom a {
-    color: $light-color;
+    color: #221c1b;
 }
 
 .navbar-toggler-icon{
@@ -18,5 +18,21 @@ $text-color: #fff8f8 !important;
 }
 
 body {
-    background-color: white;
+    background-color:$primary-color ;
+    color : $text-color ;
+}
+
+h1 {
+    color :$secondary-color;
+    font-family: 'Staatliches';
+}
+
+h2 {
+    color :$light-color;
+    font-family: 'Big Shoulders Text'
+}
+
+p {
+    color : $text-color ;
+    font-family: 'Raleway';
 }
