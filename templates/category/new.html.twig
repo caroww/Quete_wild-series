@@ -3,7 +3,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ form_start(form) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
     <input type='submit' value='Add category'>
     {{ form_end(form) }}

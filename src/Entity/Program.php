@@ -7,9 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
+ * @UniqueEntity(
+ * fields = {"title"},
+ * message = "Cette série existe déjà."
+ * )
  */
 class Program
 {
@@ -21,17 +27,25 @@ class Program
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
+     * @Assert\Length(max="255", maxMessage="Le nom de la série saisie {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
+     * @Assert\Regex(
+     * pattern="/plus belle la vie/",
+     * match=false,
+     * message="On parle de vraies séries ici"
+     * )  
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text")
-     */
+    * @ORM\Column(type="text")
+    * @Assert\NotBlank(message="ne me laisse pas tout vide") 
+    */
     private $summary;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)   
      */
     private $poster;
 
