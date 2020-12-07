@@ -1,4 +1,3 @@
-{# templates/program/show.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -6,7 +5,7 @@
 {% for program in programs %}
   <div class="media">
     <div class="media-body">
-      <h1 class="mt-0">{{ program.id }}.<a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></h1>
+      <h1 class="mt-0">{{ program.id }}.<a href="{{ path("program_show", { programId: program.id }) }}">{{ program.title }}</a></h1>
       <p>{{ program.summary }}</p>
     </div>
   </div>
