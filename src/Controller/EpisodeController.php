@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Episode;
+use App\Entity\Season;
+use App\Entity\Program;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Service\Slugify;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 /**
  * @Route("/episode")
@@ -30,9 +34,10 @@ class EpisodeController extends AbstractController
     /**
      * @Route("/new", name="episode_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response
     {
-        $episode = new Episode();
+        $episode = new Episode();              
+
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
@@ -44,6 +49,17 @@ class EpisodeController extends AbstractController
 
             $entityManager->persist($episode);
             $entityManager->flush();
+
+            $season = $episode->getSeason();
+            $program = $season->getProgram();  
+
+            $email = (new Email())
+            ->from($this->getParameter('mailer_from'))
+            ->to('your_email@example.com')
+            ->subject('Un nouvel épisode vient d\'être publié !')
+            ->html($this->renderView('episode/newEpisodeEmail.html.twig', ['episode' => $episode, 'program' => $program, 'season' => $season]));
+
+            $mailer->send($email);
 
             return $this->redirectToRoute('episode_index');
         }
