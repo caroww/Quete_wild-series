@@ -8,7 +8,7 @@
     <h1 class="mt-0">{{ actors.name }}</h1>
       {% for program in programs %}
       <div>
-        <a href="{{ path("program_show", { programId: program.id }) }}"><h2>{{ program.title }}</h2></a>
+        <a href="{{ path("program_show", { slug: program.slug }) }}"><h2>{{ program.title }}</h2></a>
         </div>
         {% else %}
         <p>No actor to display</p>

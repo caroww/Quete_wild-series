@@ -2,7 +2,7 @@
 
 $primary-color: #0f0e0e !important;
 $secondary-color: #ca2703 !important;
-$light-color:#535353!important;
+$light-color:#777474!important;
 $text-color: #fff8f8 !important;
 
 .nav-custom {
@@ -37,3 +37,6 @@ p, table {
     font-family: 'Raleway';
 }
 
+.btn{
+    color : $secondary-color;
+}
