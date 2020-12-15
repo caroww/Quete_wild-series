@@ -9,7 +9,10 @@
 ## Quete 15 : [Démo](https://www.loom.com/share/c481051bae2848c4b9a51c28db6a0993)
 ## Quete 16 : [Démo](https://www.loom.com/share/517f8968e138402680c448aeffa5b8f8)
 ## Quete 17 : [Démo](https://www.loom.com/share/58040c6262894a6f86ec6f183c36043a); [Démo avec caractères spéciaux](https://www.loom.com/share/4a6dc9f995fc48bfabfc06321df822a8)
-## Quete 18 : [Démo](https://www.loom.com/share/8b02cf1b92184c49b6aea26be3382319)
+## Quete 18 : [Démo](https://www.loom.com/share/8b02cf1b92184c49b6aea26be3382319);[Démo avec CSS](https://www.loom.com/share/b0a815be36d94de8a44689332f6200bb)
+
+
+
 
 
 
