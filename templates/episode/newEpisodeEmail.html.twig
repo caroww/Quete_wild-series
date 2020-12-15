@@ -3,10 +3,12 @@
 {% block title %}New episode{% endblock %}  
 
 {% block body %}
-    <h1>New episode {{ episode.title }} created</h1>
 
-    <p>Hello, the new episode <a href="http://localhost:8000{{ path("program_season_show", { slug: program.slug, seasonId: season.id }) }}">{{ episode.number }}.{{ episode.title }}</a>
-    from {{ program.title }} has been created on Wild Series</p>
-
-     <p>Summary : {{episode.synopsis }}
+            <h1 class="margin">News Wild Séries</h1>
+            <h2 class="margin">New episode {{ episode.title }} created</h2>
+        
+            <p class="margin">Hello, the new episode <a href="http://localhost:8000{{ path("program_season_show", { slug: program.slug, seasonId: season.id }) }}">{{ episode.number }}.{{ episode.title }}</a>
+            from {{ program.title }} has been created on Wild Series</p>
+        
+            <p class="margin">Summary : {{episode.synopsis }}
 {% endblock %}
