@@ -10,6 +10,22 @@
     </div>
   </div>
 
+ {% if app.user %}
+    {{ include('comment/_form.html.twig') }}
+    {% endif %}
+
+    {% for comment in comments %}
+                        <div>                      
+                            <div>Commentaire  : {{ comment.comment }} </div>
+                            <div>Note {{ comment.rate }}/10 </div>
+                            <div>Par {{ comment.author.username }} </div>
+                        </div>
+                     {% else %} 
+                        <div>
+                            Pas de commentaires
+                        </div>
+                     {% endfor %} 
+ 
 <a href="{{ path('program_index') }}">
     Retour à la liste des programmes
 </a>

@@ -14,6 +14,9 @@ use App\Entity\Episode;
 use App\Service\Slugify;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use App\Entity\Comment;
+use App\Form\CommentType;
+use App\Entity\User;
 
 
 /**
@@ -125,15 +128,35 @@ class ProgramController extends AbstractController
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      * @ParamConverter("seasons", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
      * @ParamConverter("episodes", class="App\Entity\Episode", options={"mapping": {"episodeId": "id"}})
-
      * @return Response
      */
-    public function showEpisode(Program $program, Season $seasons, Episode $episodes) :Response
-    {     
+    public function showEpisode(Program $program, Season $seasons, Episode $episodes, Request $request) :Response
+    {   
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        $user=$this->getUser();
+        $comment->setEpisode($episodes);
+        $comment->setAuthor($user);
+ 
+
+         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('comment_index');
+        }   
+
+        $comments=$this->getDoctrine()
+                       ->getRepository(Comment::class)
+                       ->findBy(['episode'=>$episodes]);                      
+
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,
             'seasons' => $seasons,
-            'episodes' => $episodes
+            'episodes' => $episodes,
+            'comments'=> $comments,
+            'form'=> $form->createView()
         ]);
     }
 

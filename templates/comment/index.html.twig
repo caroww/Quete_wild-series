@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All categories{% endblock %}
+
+{% block body %}
+    <h1>Toutes les commentaires : </h1>
+    {% for comment in comments %}
+        <div>
+            <h2>{{ loop.index }}/ Episode : {{ comment.episode.title }}</h2>
+             <div>Commentaire  : {{ comment.comment }} </div>
+                            <div>Note {{ comment.rate }}/10 </div>
+                            <div>Par {{ comment.author.username }} </div>
+                     
+        </div>
+          
+
+    {% else %}
+        Aucun commentaire trouvé
+    {% endfor %}
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}
+
+   
+

@@ -26,6 +26,12 @@
         </tbody>
     </table>
 
+    {% if app.user %}
+    {{ include('comment/_form.html.twig') }}
+    {% endif %}
+
+
+
     <a href="{{ path('episode_index') }}">back to list</a>
 
     <a href="{{ path('episode_edit', {'slug': episode.slug}) }}">edit</a>
