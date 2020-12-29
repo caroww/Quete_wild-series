@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block body %}
+    <h1>Edit Comment</h1>
+
+    {{ include('comment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('program_index') }}">back to list</a>
+
+    {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_CONTRIBUTOR") %}
+    {{ include('comment/_delete_form.html.twig') }}
+    {% endif %}
+    
+
+    
+{% endblock %}

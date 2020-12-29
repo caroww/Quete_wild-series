@@ -7,10 +7,11 @@
         <h1>{{ program.title }} - Season {{ seasons.number }}<h1>
         <h2> Episode {{ episodes.number }} - {{ episodes.title }}</h2>  
         <p>{{ episodes.synopsis }}</p>
+        
     </div>
   </div>
 
- {% if app.user %}
+{% if is_granted("ROLE_ADMIN") or is_granted("ROLE_CONTRIBUTOR") %}
     {{ include('comment/_form.html.twig') }}
     {% endif %}
 
@@ -20,6 +21,12 @@
                             <div>Note {{ comment.rate }}/10 </div>
                             <div>Par {{ comment.author.username }} </div>
                         </div>
+                    {% if app.user %}
+                        <a href="{{ path('comment_edit', {'id': comment.id}) }}">
+                        Editer le commentaire
+                        </a>
+                    {% endif %}
+
                      {% else %} 
                         <div>
                             Pas de commentaires
@@ -29,6 +36,7 @@
 <a href="{{ path('program_index') }}">
     Retour à la liste des programmes
 </a>
+
 
 {% endblock %}
    

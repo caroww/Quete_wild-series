@@ -11,6 +11,10 @@
             <p>{{ program.summary }}</p>
             {# Lien vers la fiche de la série : #}
             <a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
+            {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_CONTRIBUTOR") %}
+             <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+            {% endif %}
+
         </div>       
 
     {% else %}
@@ -20,6 +24,8 @@
     <a href="{{ path('app_index') }}">
         Retour à l'accueil
     </a>
+
+
 {% endblock %}
 
    
