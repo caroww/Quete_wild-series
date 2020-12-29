@@ -17,6 +17,7 @@ use Symfony\Component\Mime\Email;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 /**
@@ -57,6 +58,8 @@ class ProgramController extends AbstractController
                 $slug = $slugify->generate($program->getTitle());
                 $program->setSlug($slug);
 
+                $program->setOwner($this->getUser());
+
                 $entityManager->persist($program);
                 $entityManager->flush();
 
@@ -68,6 +71,7 @@ class ProgramController extends AbstractController
 
                 $mailer->send($email);
 
+                
                 return $this->redirectToRoute('program_index');
                 }    
                      
@@ -157,6 +161,45 @@ class ProgramController extends AbstractController
             'episodes' => $episodes,
             'comments'=> $comments,
             'form'=> $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/edit", name="edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Program $program): Response
+    {
+        $user=$this->getUser();
+        $isadmin=false;
+        $listeDroits=$user->getRoles();      
+ 
+        foreach ($listeDroits as $value) {
+            if ($value=='ROLE_ADMIN')
+            {
+                $isadmin=true;
+            }
+        }
+        if(!$isadmin)
+        {
+            if (($this->getUser() != $program->getOwner()))
+            {
+                throw new AccessDeniedException('Only the owner can edit the program!');
+            }
+
+        }
+
+        $form = $this->createForm(ProgramType::class, $program);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('program_index');
+        }
+
+        return $this->render('program/edit.html.twig', [
+            'program' => $program,
+            'form' => $form->createView(),
         ]);
     }
 
