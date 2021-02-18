@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Toutes les séries de la table program : </h1>
+ {{ include('program/_searchform.html.twig') }}
     {% for program in programs %}
 
         <div>
